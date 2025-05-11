@@ -10,92 +10,15 @@ def load_yara_rules(rules_dir):
             rule_path = os.path.join(rules_dir, filename)
             rule_files[filename] = rule_path
     return yara.compile(filepaths=rule_files)
-""" 
+
 def scan_apk_with_yara(apk_path, rules_dir="yara_rules"):
     results = []
     rules = load_yara_rules(rules_dir)
 
     with zipfile.ZipFile(apk_path, 'r') as zipf:
         for name in zipf.namelist():
-            if name.endswith(".dex") or name.endswith(".smali") or name.endswith(".xml"):
-                try:
-                    content = zipf.read(name)
-                    text_content = content.decode("utf-8", errors="ignore")
-                    matches = rules.match(data=content)
-                    for match in matches:
-                        results.append({
-                            "file": name,
-                            "rule": match.rule,
-                            "meta": match.meta  # ⬅️ meta bilgisi de dahil edildi
-                        }) 
-                        
-                except Exception:
-                    continue
-
-    return results
- """
- 
-""" def scan_apk_with_yara(apk_path, rules_dir="yara_rules"):
-    results = []
-    rules = load_yara_rules(rules_dir)
-
-    with zipfile.ZipFile(apk_path, 'r') as zipf:
-        for name in zipf.namelist():
-            if name.endswith((".dex", ".smali", ".xml", ".txt", ".properties", ".rc", ".prop")):
-                try:
-                    raw_content = zipf.read(name)
-                    decoded_content = raw_content.decode("utf-8", errors="ignore")
-                    lines = decoded_content.splitlines()
-
-                    matches = rules.match(data=raw_content)
-                    for match in matches:
-                        match_result = {
-                            "file": name,
-                            "rule": match.rule,
-                            "meta": match.meta,
-                            "matches": []
-                        }
-
-                        for s in match.strings:
-                            try:
-                                matched_str = s.data.decode("utf-8", errors="ignore")
-                                for idx, line in enumerate(lines):
-                                    if matched_str in line:
-                                        snippet = "\n".join(lines[max(0, idx - 2): idx + 3])
-                                        match_result["matches"].append({
-                                            "string_id": s.identifier,
-                                            "matched": matched_str,
-                                            "line_number": idx + 1,
-                                            "snippet": snippet
-                                        })
-                                        break
-                            except Exception:
-                                continue
-
-                        if not match_result["matches"]:
-                            match_result["matches"].append({
-                                "string_id": "N/A",
-                                "matched": "❓ Eşleşen string tespit edilemedi",
-                                "line_number": -1,
-                                "snippet": "-"
-                            })
-
-                        results.append(match_result)
-
-                except Exception as e:
-                    print(f"[!] {name} dosyasında hata: {e}")
-                    continue
-
-    return results
- """
-def scan_apk_with_yara(apk_path, rules_dir="yara_rules"):
-    import yara
-    results = []
-    rules = load_yara_rules(rules_dir)
-
-    with zipfile.ZipFile(apk_path, 'r') as zipf:
-        for name in zipf.namelist():
-            if name.endswith((".dex", ".smali", ".xml", ".txt", ".properties", ".rc", ".prop")):
+            if name.endswith((".dex", ".smali", ".xml", ".txt", ".properties", ".rc", ".prop",
+                  ".plist", ".json", ".strings", ".conf")):
                 try:
                     raw_content = zipf.read(name)
                     decoded_content = raw_content.decode("utf-8", errors="ignore")

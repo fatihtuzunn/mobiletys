@@ -6,6 +6,7 @@ from .plist_parser import parse_info_plist
 from .provision_parser import extract_mobileprovision
 from .permission_checker_ios import extract_ios_permissions
 from .ios_string_scanner import scan_strings_in_ipa
+from .yara_scanner import scan_apk_with_yara
 
 def analyze_ipa(file_path):
     result = {
@@ -17,13 +18,15 @@ def analyze_ipa(file_path):
         "suspicious_files": [],
         "debug_info_plists": [],  # ⬅️ diğer plist’ler burada toplanacak
         "permissions": [],
-        "suspicious_strings": []
+        "suspicious_strings": [],
+        "yara_matches": []
     }
 
     with zipfile.ZipFile(file_path, "r") as zipf:
         for name in zipf.namelist():
             # ✅ Ana Info.plist sadece Payload/*.app içinde aranmalı
             result["suspicious_strings"] = scan_strings_in_ipa(file_path)
+            result['yara_matches'] = scan_apk_with_yara(file_path)
             if name.endswith(".app/Info.plist") and "Payload/" in name:
                 try:
                     data = zipf.read(name)

@@ -8,7 +8,10 @@ SUSPICIOUS_PATTERNS = {
     "JWT Token": r"eyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}",
     "Firebase URL": r"https://[^\s\"']*firebaseio\.com[^\s\"']*",
     "API Key (Google)": r"AIza[0-9A-Za-z-_]{35}",
-    "Client Secret": r"client_secret\s*[:=]\s*['\"][A-Za-z0-9\-_\.]+['\"]"
+    "Client Secret": r"client_secret\s*[:=]\s*['\"][A-Za-z0-9\-_\.]+['\"]",
+    "Push Token": r"\b[a-f0-9]{64}\b",
+    "itms-services": r"itms-services://[^\s\"']+",
+    "iCloud Reference": r"icloud[a-z\-\.]*",
 }
 
 def scan_strings_in_ipa(file_path):

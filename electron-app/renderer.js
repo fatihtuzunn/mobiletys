@@ -106,7 +106,8 @@ function renderIPAResult(data) {
     ${renderATSDetails(data.security_flags?.NSAppTransportSecurity || {})}
     <h4>📋 Info.plist İçeriği</h4>
     <ul>${plist}</ul>
-
+<h4>🧬 YARA Eşleşmeleri:</h4>
+    ${renderYaraMatchesByGroup(data.yara_matches)}
     
     ${renderSuspiciousStringsIOS(data.suspicious_strings)}
 

@@ -195,3 +195,18 @@ rule android_frida_detection
     condition:
         2 of them
 }
+
+rule iOS_CFBundleIdentifier_Exists
+{
+    meta:
+        description = "Detects CFBundleIdentifier in Info.plist"
+        author = "Lostar"
+        group = "ios_test"
+        severity = "info"
+
+    strings:
+        $identifier = "DTSDKName"
+
+    condition:
+        $identifier
+}

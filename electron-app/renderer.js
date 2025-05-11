@@ -107,6 +107,9 @@ function renderIPAResult(data) {
     <h4>📋 Info.plist İçeriği</h4>
     <ul>${plist}</ul>
 
+    
+    ${renderSuspiciousStringsIOS(data.suspicious_strings)}
+
     <h4>⚠️ Şüpheli Dosyalar</h4>
     ${susFiles}
   `;
@@ -619,6 +622,34 @@ function renderSuspiciousStrings(suspicious) {
             </tr>
           `;
         }).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderSuspiciousStringsIOS(suspicious = []) {
+  if (!suspicious || suspicious.length === 0) {
+    return "<p>✅ Şüpheli string bulunamadı (iOS).</p>";
+  }
+
+  return `
+    <h4>🧵 iOS Şüpheli Stringler</h4>
+    <table border="1" cellpadding="6" cellspacing="0" style="width:100%">
+      <thead>
+        <tr><th>📄 Dosya</th><th>🔎 Tür</th><th>💬 Eşleşen Değerler</th></tr>
+      </thead>
+      <tbody>
+        ${suspicious.map(item => `
+          <tr>
+            <td style="width:30%">${item.file}</td>
+            <td style="width:20%">${item.type}</td>
+            <td style="width:50%">
+              <ul style="padding-left:1.2em;">
+                ${(item.matches || []).map(m => `<li>${m}</li>`).join("")}
+              </ul>
+            </td>
+          </tr>
+        `).join("")}
       </tbody>
     </table>
   `;

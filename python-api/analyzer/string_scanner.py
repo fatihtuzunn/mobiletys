@@ -120,7 +120,7 @@ def scan_strings(apk_path):
                         results.append({
                             "file": name,
                             "type": label,
-                            "matched": matched_str[:100],
+                            "matched": matched_str,
                             "line_number": line_number + 1,
                             "snippet": snippet
                         })

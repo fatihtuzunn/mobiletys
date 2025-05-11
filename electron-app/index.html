@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Mobile Application Static Analysis</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <script defer src="renderer.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+    }
+
+    button {
+      padding: 0.5em 1em;
+      font-size: 1em;
+    }
+
+    #selectedPath {
+      margin-top: 1em;
+      color: #333;
+    }
+
+    #results {
+      margin-top: 2em;
+      background: #f5f5f5;
+      border: 1px solid #ccc;
+      padding: 1em;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+
+    h4 {
+      margin-bottom: -10px;
+      margin-top: -10px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    td,
+    th {
+      padding: 4px;
+      /* örneğin 4px gibi daha küçük bir değer */
+      word-break: break-word;
+    }
+
+    #results.pdf-export {
+      font-family: Arial, sans-serif;
+      color: #222;
+    }
+
+    #results.pdf-export h3,
+    #results.pdf-export h4,
+    #results.pdf-export h5 {
+      margin-top: 1.5em;
+      background: #f0f0f0;
+      padding: 0.5em;
+      border-left: 4px solid #666;
+    }
+
+    #results.pdf-export table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5em;
+    }
+
+    #results.pdf-export th,
+    #results.pdf-export td {
+      border: 1px solid #999;
+      padding: 6px;
+      word-break: break-word;
+    }
+
+    #results.pdf-export ul {
+      padding-left: 1.5em;
+    }
+
+    #results.pdf-export pre {
+      background-color: #f8f8f8;
+      padding: 0.5em;
+      font-family: monospace;
+      white-space: pre-wrap;
+      border: 1px solid #ccc;
+      overflow-x: auto;
+    }
+
+    .pdf-export .snippet-column,
+    .pdf-export .snippet-cell {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <h2>Mobile Application Static Analysis Tool</h2>
+  <div id="downloadButtons" style="position: absolute; top: 60px; right: 20px; display: none;">
+    <button id="downloadManifestBtn" style="display: none;">📄 Manifest İndir</button>
+    <button id="downloadPdfBtn">📥 PDF Rapor İndir</button>
+    <button id="printReportBtn">🖨️ Yazdır</button>
+
+  </div>
+
+  <button id="selectFileBtn">📂 Uygulama Dosyası Seç</button>
+  <div id="selectedPath">Henüz dosya seçilmedi.</div>
+  
+  
+  <div id="pdf-cover" style="display: none;">
+    <h1 style="text-align: center;">Statik Analiz Raporu</h1>
+    <p style="text-align: center;">Oluşturulma Tarihi: <span id="pdf-date"></span></p>
+    <p style="text-align: center;">Bu rapor, analiz edilen APK/IPA dosyasına ait güvenlik ve yapı bilgilerini içermektedir.</p>
+    <hr />
+  </div>
+  
+  <div id="results">Analiz sonuçları burada gösterilecek...</div>
+  
+
+  
+  
+</body>
+
+</html>

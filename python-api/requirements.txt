@@ -1,0 +1,4 @@
+apkutils
+Flask
+yara-python
+lxml

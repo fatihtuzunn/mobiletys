@@ -1,6 +1,6 @@
 # analyzer/analyze.py
-from .apk_analyzer import analyze_apk
-from .ipa_analyzer import analyze_ipa
+from .apk.analyzer import analyze_apk
+from .ipa.analyzer import analyze_ipa
 
 def analyze_file(file_path):
     if file_path.endswith(".apk"):

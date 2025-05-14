@@ -1,9 +1,9 @@
-from .yara_scanner import scan_apk_with_yara
+from ..yara_scanner import scan_apk_with_yara
 from .manifest_parser import parse_manifest
 from .permission_checker import check_permissions
 from .string_scanner import scan_strings
 from .vuln_scanner import scan_vulnerabilities
-from .file_info import get_file_info
+from ..file_info import get_file_info
 
 def analyze_apk(analyzer_path):
     result = {

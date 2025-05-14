@@ -1,12 +1,12 @@
 # analyzer/ipa_analyzer.py
 
 import zipfile
-from .file_info import get_file_info
+from ..file_info import get_file_info
 from .plist_parser import parse_info_plist
 from .provision_parser import extract_mobileprovision
 from .permission_checker_ios import extract_ios_permissions
 from .ios_string_scanner import scan_strings_in_ipa
-from .yara_scanner import scan_apk_with_yara
+from ..yara_scanner import scan_apk_with_yara
 
 def analyze_ipa(file_path):
     result = {

@@ -1,2 +1,2 @@
-from .apk_analyzer import analyze_apk
-from .ipa_analyzer import analyze_ipa
+from .apk.analyzer import analyze_apk
+from .ipa.analyzer import analyze_ipa
